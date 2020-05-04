@@ -1,0 +1,2 @@
+Ali to resolve: Template for what needs to go in "yaml pod configs" / what we need from terraform team (e.g. etcd   )
+Malcolm to resolve: restrictions on using etcd for storage layer
