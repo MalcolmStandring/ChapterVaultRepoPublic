@@ -10,3 +10,17 @@ Malcolm to resolve: restrictions on using etcd for storage layer:
     - Service Name, Port, HA-Enabled. Ideally Etcd to be advertised via SRV DNS records.
     - Path in Etcd for Vault to store its secrets in
     - Authentication creds: Username+password+TLS Cert file + TLS Private Key file
+
+(From Malcolm) Task@3pts: Configure Vault to utilise Etcd Storage Backend:
+  - We need from Terraform team following info for Etcd service to configure Vault:
+    - Service Name, Port, HA-Enabled. Ideally Etcd to be advertised via SRV DNS records.
+    - Path in Etcd for Vault to store its secrets in
+    - Authentication creds: Username+password+TLS Cert file + TLS Private Key file
+
+(From Malcolm) Task@3pts: Configure HA-Capable Etcd Service within OPC4 and/or Terraform LZ build
+  - Use Etcd API V3, not 2 as v2 has issues over HA
+  - Needs to be HA-capable, even if only one node stood up
+  - Needs to feed info to "Task to COnfigure Vault to utilise Etcd Storage Backkend:
+    - Service Name, Port, HA-Enabled. Ideally Etcd to be advertised via SRV DNS records.
+    - Path in Etcd for Vault to store its secrets in
+    - Authentication creds: Username+password+TLS Cert file + TLS Private Key file
