@@ -1,2 +1,12 @@
 Ali to resolve: Template for what needs to go in "yaml pod configs" / what we need from terraform team (e.g. etcd   )
-Malcolm to resolve: restrictions on using etcd for storage layer
+
+Malcolm to resolve: restrictions on using etcd for storage layer:
+  - Use Etcd API V3, not 2 as v2 has issues over HA
+  - No reported gotcha's (yet!) on either performance, availability/HA, scalability over using Consul
+  - Consul is noted for being a massive resource og, and Etcd is reported as being much better in that respect
+  - It is easy (though not the best security-wise) for Terraform to utilise Etcd as a "dumb" Secrets store.
+  - We need Terraform/OCP4 installer to also configure Etcd as service, and be HA-capable
+  - We need from Terraform team following info for Etcd service to configure Vault:
+    - Service Name, Port, HA-Enabled. Ideally Etcd to be advertised via SRV DNS records.
+    - Path in Etcd for Vault to store its secrets in
+    - Authentication creds: Username+password+TLS Cert file + TLS Private Key file
