@@ -25,4 +25,8 @@ Malcolm to resolve: restrictions on using etcd for storage layer:
     - Path in Etcd for Vault to store its secrets in
     - Authentication creds: Username+password+TLS Cert file + TLS Private Key file
 
-    test
+    
+
+    Ali's scribbles:
+
+    
