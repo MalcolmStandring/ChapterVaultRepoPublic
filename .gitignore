@@ -8,3 +8,8 @@ DeployVault/*.tfplan
 DeployVault/terraform.tfstate
 DeployVault/terraform.tfstate.backup
 DeployVault/.terraform.tfstate.lock.info
+DeployHelm/.terraform
+DeployHelm/*.tfplan
+DeployHelm/terraform.tfstate
+DeployHelm/terraform.tfstate.backup
+DeployHelm/.terraform.tfstate.lock.info
