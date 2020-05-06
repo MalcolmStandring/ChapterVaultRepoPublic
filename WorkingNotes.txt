@@ -1,4 +1,4 @@
-Ali to resolve: Template for what needs to go in "yaml pod configs" / what we need from terraform team (e.g. etcd   )
+Ali to resolve: Template for what needs to go in "yaml pod configs" / what we need from terraform team (e.g. etcd  )
 
 Malcolm to resolve: restrictions on using etcd for storage layer:
   - Use Etcd API V3, not 2 as v2 has issues over HA
@@ -24,3 +24,5 @@ Malcolm to resolve: restrictions on using etcd for storage layer:
     - Service Name, Port, HA-Enabled. Ideally Etcd to be advertised via SRV DNS records.
     - Path in Etcd for Vault to store its secrets in
     - Authentication creds: Username+password+TLS Cert file + TLS Private Key file
+
+    test
