@@ -1,3 +1,10 @@
 DeployEtcd/.terraform
 DeployEtcd/*.tfplan
 DeployEtcd/terraform.tfstate
+DeployEtcd/terraform.tfstate.backup
+DeployEtcd/.terraform.tfstate.lock.info
+DeployVault/.terraform
+DeployVault/*.tfplan
+DeployVault/terraform.tfstate
+DeployVault/terraform.tfstate.backup
+DeployVault/.terraform.tfstate.lock.info
