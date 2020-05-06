@@ -24,3 +24,5 @@ Malcolm to resolve: restrictions on using etcd for storage layer:
     - Service Name, Port, HA-Enabled. Ideally Etcd to be advertised via SRV DNS records.
     - Path in Etcd for Vault to store its secrets in
     - Authentication creds: Username+password+TLS Cert file + TLS Private Key file
+
+    test
