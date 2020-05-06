@@ -1,1 +1,2 @@
 DeployEtcd/.terraform
+DeployEtcd/*.tfplan
