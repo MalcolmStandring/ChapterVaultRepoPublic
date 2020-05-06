@@ -29,4 +29,20 @@ Malcolm to resolve: restrictions on using etcd for storage layer:
 
     Ali's scribbles:
 
+Suggestions for MVP
+-------------------
+ - Etcd Operator - Not in MVP, later phase
+ - Vault Operator - Not in MVP, later phase
+ - Etcd Cluster - MVP  (configurable, probably just 1 node deployed)
+ - Vault Cluster - MVP (configurable, probably just 1 node deployed)
+ - Consul - Not in Landing Zone!
+ - SEAL/UNSEAL - manual in MVP, Autounseal in later phase(s)???
+ - Helm Chart deploy - MVP (as allows us to use YAML files for bulk of config)
+ - SCOPE OF USE OF Vault
+   - MVP: Service available for deployed apps to use, providing they configure Vault agents
+   - Auto injection of Vault agents into pods - later phase(s)
+   - Service Accounts, master node creds - later phase(s)
+   - OpenShift accounts - later phase(s)
+   - Roles / ClusterRoles / RoleBindings / ClusterRoleBindings - later phase(s)
+   - Terraform creds / bootstrapping Vault - later phase(s)
     
