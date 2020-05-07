@@ -45,4 +45,15 @@ Suggestions for MVP
    - OpenShift accounts - later phase(s)
    - Roles / ClusterRoles / RoleBindings / ClusterRoleBindings - later phase(s)
    - Terraform creds / bootstrapping Vault - later phase(s)
-    
+
+Decisions
+---------
+Do not use etcd and vault operators in MVP
+Use Helm charts for deployment of etcd and vault in MVP
+Etcd version: https://hub.helm.sh/charts/bitnami/etcd v3.4.7 in MVP
+Vault version: https://hub.helm.sh/charts/banzaicloud-stable/vault v1.2.0 in MVP
+Etcd will be configured to empploy Persistant Volumes in MVP
+The Terraform "kubernetes" provider will be used to provision OpenShift in MVP
+The Terraform community plugin "OpenShift" will not be used in MVP over concerns about reliability
+Vault seal/unseal will initially be manual in MVP
+Both vault and etcd will be exposed in their own K8 namespaces, and exposed as Ingress services in MVP
