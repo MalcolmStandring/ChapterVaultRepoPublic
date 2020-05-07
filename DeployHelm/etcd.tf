@@ -25,9 +25,8 @@ data "kubernetes_service" "etcd_svc" {
   depends_on = [
     helm_release.etcd
   ]
-
   metadata {
     namespace = "etcd"
-    name      = "etcd-ui"
+    name      = "etcd"
   }
 }

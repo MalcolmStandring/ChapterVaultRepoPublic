@@ -1,5 +1,6 @@
 # vault configuration values
-# Using the banzaicloud-stable/vault v 1.2.0 helm repository, doc: https://hub.helm.sh/charts/banzaicloud-stable/vault:
+# Using the banzaicloud-stable/vault v 1.2.0 helm repository, doc: https://hub.helm.sh/charts/banzaicloud-stable/vault
+# Hashicorp "Configuration: Etcd Storage Backend" documented at: https://www.vaultproject.io/docs/configuration/storage/etcd
   dataStorage:
     enabled: true
   standalone:
@@ -19,8 +20,10 @@
       }
 
       storage "etcd" {
-        path = "vault"
-        address = "HOST_IP:8500"
+        ha_enabled = "true"
+        path = "/vault/"
+        etcd_api = "v3"
+        address = "${etcd_clusterip}:2379"
       }
   extraVolumes:
     - type: secret
