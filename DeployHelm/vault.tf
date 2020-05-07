@@ -21,7 +21,7 @@ resource "helm_release" "vault" {
   # Doc: https://hub.helm.sh/charts/banzaicloud-stable/vault v1.2.0
 
   values = [
-    templatefile("vault.tmpl", { replicas = vars.Vault_nodecount })
+    templatefile("vault.tmpl", { replicas = var.Vault_nodecount })
   ]
 }
 
