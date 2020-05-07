@@ -1,0 +1,59 @@
+Ali to resolve: Template for what needs to go in "yaml pod configs" / what we need from terraform team (e.g. etcd  )
+
+Malcolm to resolve: restrictions on using etcd for storage layer:
+  - Use Etcd API V3, not 2 as v2 has issues over HA
+  - No reported gotcha's (yet!) on either performance, availability/HA, scalability over using Consul
+  - Consul is noted for being a massive resource og, and Etcd is reported as being much better in that respect
+  - It is easy (though not the best security-wise) for Terraform to utilise Etcd as a "dumb" Secrets store.
+  - We need Terraform/OCP4 installer to also configure Etcd as service, and be HA-capable
+  - We need from Terraform team following info for Etcd service to configure Vault:
+    - Service Name, Port, HA-Enabled. Ideally Etcd to be advertised via SRV DNS records.
+    - Path in Etcd for Vault to store its secrets in
+    - Authentication creds: Username+password+TLS Cert file + TLS Private Key file
+
+(From Malcolm) Task@3pts: Configure Vault to utilise Etcd Storage Backend:
+  - We need from Terraform team following info for Etcd service to configure Vault:
+    - Service Name, Port, HA-Enabled. Ideally Etcd to be advertised via SRV DNS records.
+    - Path in Etcd for Vault to store its secrets in
+    - Authentication creds: Username+password+TLS Cert file + TLS Private Key file
+
+(From Malcolm) Task@3pts: Configure HA-Capable Etcd Service within OPC4 and/or Terraform LZ build
+  - Use Etcd API V3, not 2 as v2 has issues over HA
+  - Needs to be HA-capable, even if only one node stood up
+  - Needs to feed info to "Task to COnfigure Vault to utilise Etcd Storage Backkend:
+    - Service Name, Port, HA-Enabled. Ideally Etcd to be advertised via SRV DNS records.
+    - Path in Etcd for Vault to store its secrets in
+    - Authentication creds: Username+password+TLS Cert file + TLS Private Key file
+
+    
+
+    Ali's scribbles:
+
+Suggestions for MVP
+-------------------
+ - Etcd Operator - Not in MVP, later phase
+ - Vault Operator - Not in MVP, later phase
+ - Etcd Cluster - MVP  (configurable, probably just 1 node deployed)
+ - Vault Cluster - MVP (configurable, probably just 1 node deployed)
+ - Consul - Not in Landing Zone!
+ - SEAL/UNSEAL - manual in MVP, Autounseal in later phase(s)???
+ - Helm Chart deploy - MVP (as allows us to use YAML files for bulk of config)
+ - SCOPE OF USE OF Vault
+   - MVP: Service available for deployed apps to use, providing they configure Vault agents
+   - Auto injection of Vault agents into pods - later phase(s)
+   - Service Accounts, master node creds - later phase(s)
+   - OpenShift accounts - later phase(s)
+   - Roles / ClusterRoles / RoleBindings / ClusterRoleBindings - later phase(s)
+   - Terraform creds / bootstrapping Vault - later phase(s)
+
+Decisions
+---------
+Do not use etcd and vault operators in MVP
+Use Helm charts for deployment of etcd and vault in MVP
+Etcd version: https://hub.helm.sh/charts/bitnami/etcd v3.4.7 in MVP
+Vault version: https://hub.helm.sh/charts/banzaicloud-stable/vault v1.2.0 in MVP
+Etcd will be configured to empploy Persistant Volumes in MVP
+The Terraform "kubernetes" provider will be used to provision OpenShift in MVP
+The Terraform community plugin "OpenShift" will not be used in MVP over concerns about reliability
+Vault seal/unseal will initially be manual in MVP
+Both vault and etcd will be exposed in their own K8 namespaces, and exposed as Ingress services in MVP
