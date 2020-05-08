@@ -23,7 +23,7 @@
         ha_enabled = "true"
         path = "/vault/"
         etcd_api = "v3"
-        address = "${etcd_clusterip}:2379"
+        address = "HOST_IP:2379"
       }
   extraVolumes:
     - type: secret
