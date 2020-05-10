@@ -23,3 +23,10 @@ data "helm_repository" "bitnami" {
   url  = "https://charts.bitnami.com"
 }
 # Contains v 3.4.7 of "etcd" chart (https://hub.helm.sh/charts/bitnami/etcd)
+
+# Incubator ""
+data "helm_repository" "incubator" {
+  name = "incubator"
+  url = "https://kubernetes-charts-incubator.storage.googleapis.com"
+}
+# Contains v1.2.3 of "vault" (chart version 0.23.5) (https://hub.helm.sh/charts/incubator/vault)
