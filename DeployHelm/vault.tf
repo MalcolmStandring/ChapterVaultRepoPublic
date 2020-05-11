@@ -27,7 +27,7 @@ resource "helm_release" "vault" {
   # Doc: https://hub.helm.sh/charts/incubator/vault v1.2.3
 
   values = [
-    templatefile("vault.tmpl", { replicas = var.Vault_nodecount }) # was , etcd_clusterip = data.kubernetes_service.etcd_svc.spec.cluster_ip
+    templatefile("vault.tmpl", { replicas = var.Vault_nodecount, etcd_clusterip = data.kubernetes_service.etcd_svc.spec.0.cluster_ip, etcd_clusterport = data.kubernetes_service.etcd_svc.spec.0.port.0.port } ) 
   ]
 }
 
