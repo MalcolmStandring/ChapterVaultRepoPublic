@@ -7,7 +7,7 @@
 #   - appscode: vault-operator v 0.3.0
 resource "kubernetes_namespace" "vault" {
   metadata {
-    name = "vault"
+    name = var.Vault_namespace
   }
 }
 
