@@ -5,7 +5,7 @@
 #   - banzaicloud-stable: etcd-operator v 0.6.1
 resource "kubernetes_namespace" "etcd" {
   metadata {
-    name = "etcd"
+    name = var.Etcd_namespace
   }
 }
 
