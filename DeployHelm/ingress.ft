@@ -1,0 +1,23 @@
+resource "kubernetes_ingress" "vault_ingress" {
+    metadata {
+        name = "vault"
+    }
+
+    spec {
+        backend {
+            service_name = "vault"
+            service_port = 8200
+        }
+        rule {
+            http {
+                path {
+                    backend {
+                        service_name = "vault"
+                        service_port = 8200
+                    }
+                    path = "/*"
+                }
+            }
+        }
+    }
+}
