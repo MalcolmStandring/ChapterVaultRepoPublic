@@ -1,2 +1,11 @@
 # etcd configuration values
 # Using the bitnami/etcd v 3.4.7 helm repository, doc: https://hub.helm.sh/charts/bitnami/etcd
+allowNoneAuthentication: "true"
+auth:
+  rbac:
+    rootPassword: "${rootpwd}"
+statefulset.replicaCount: 1
+persitence:
+  enabled: true
+  accessMode: "ReadWriteOnce"
+  size: 4Gi

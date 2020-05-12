@@ -7,8 +7,11 @@ vault:
         address: "http://${etcd_clusterip}:${etcd_clusterport}"
         etcd_api: "v3"
         ha_enabled: "true"
-        username: "vaultuser"
-        password: "vaultpassword"
+        username: "root"
+        password: "${etc_rootpwd}"
         path: "/vault/"
 serviceAccount:    
   create: True
+ui:
+  enabled: true
+  serviceType: LoadBalancer
