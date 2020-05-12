@@ -1,0 +1,39 @@
+Vault-Configuration
+-------------------
+
+Required/To-Do:
+
+AWS KMS for Autounseal
+  -Create AWS IAM Role (in AWS) for AWS KMS only
+    -Use this IAM role to set up the auto-seal / unseal in the vault config file
+End to End TLS encryption
+Dynamic Secrets (for accessing secrets engines such as AWS EC2, Route 53, etc)
+    -Define in a policy and attach to a role so that it gets auto-assosciated with a token
+
+Policies - For Vault (MVP) for cluster (later stages)
+
+Root:
+    Set up and manage access for the admin user
+
+Admin:
+    Definition: Admin is a type of user empowered with managing a Vault infrastructure for a team or organizations. Empowered with sudo, the Administrator is focused on configuring and maintaining the health of Vault cluster(s) as well as providing bespoke support to Vault users.
+    -Enable and manage auth methods broadly across Vault
+    -Enable and manage the key/value secrets engine at secret/ path
+    -Create and manage ACL policies broadly across Vault
+    -Read system health check
+Provisioner:
+    Definition: provisioner is a type of user or service that will be used by an automated tool (e.g. Terraform) to provision and configure a namespace within a Vault secrets engine for a new Vault user to access and write secrets.
+    -Enable and manage auth methods
+    -Enable and manage the key/value secrets engine at secret/ path
+    -Create and manage ACL policies
+
+
+Vault configuration considerations:
+    -Listener
+    -Seal - AWS KMS
+    -Storage - etcd
+    -Service Registration: Allow vault pods to update their own tags for use with selectors - create service account which can get and update pods - not part of MVP
+    -Telemetry: Not part of MVP
+    -UI: Not part of MVP - can be easily added in
+    -Terraform:
+        If managing with Terraform, the state file will hold secrets - hence the state files should be encrypted in remote storage (e.g. encrypted S3 bucket)
