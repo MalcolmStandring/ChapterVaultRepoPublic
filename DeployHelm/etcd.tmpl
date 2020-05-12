@@ -9,3 +9,9 @@ persitence:
   enabled: true
   accessMode: "ReadWriteOnce"
   size: 4Gi
+volumePermissions:
+  enabled: true
+securityContext:
+  enabled: false
+  fsGroup: 1001
+  runAsUser: 1001
