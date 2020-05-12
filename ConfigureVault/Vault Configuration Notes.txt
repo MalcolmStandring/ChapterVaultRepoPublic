@@ -29,7 +29,7 @@ Provisioner:
 
 
 Vault configuration considerations:
-    -Listener
+    -Listener - TCP port specified in helm chart
     -Seal - AWS KMS
     -Storage - etcd
     -Service Registration: Allow vault pods to update their own tags for use with selectors - create service account which can get and update pods - not part of MVP
