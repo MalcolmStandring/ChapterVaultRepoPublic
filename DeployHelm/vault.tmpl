@@ -1,12 +1,17 @@
-# vault configuration values
-# Using the incubator/vault v 1.2.3 helm repository, doc: https://hub.helm.sh/charts/incubator/vault
-# Hashicorp "Configuration: Etcd Storage Backend" documented at: https://www.vaultproject.io/docs/configuration/storage/etcd
 replicaCount: ${replicas}
 vault:
   dev: False
-  config:
+  config: 
     storage:
-      file:
-        path: "/vault/file"
-serviceAccount:
+      etcd:
+        address: "http://${etcd_clusterip}:${etcd_clusterport}"
+        etcd_api: "v3"
+        ha_enabled: "true"
+        username: "root"
+        password: "${etc_rootpwd}"
+        path: "/vault/"
+serviceAccount:    
   create: True
+ui:
+  enabled: true
+  serviceType: LoadBalancer

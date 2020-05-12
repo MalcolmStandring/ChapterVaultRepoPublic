@@ -17,7 +17,9 @@ resource "helm_release" "etcd" {
   # Doc: https://hub.helm.sh/charts/bitnami/etcd v3.4.7
 
   values = [
-    templatefile("etcd.tmpl", { replicas = var.Vault_nodecount })
+    templatefile("etcd.tmpl", { 
+      replicas = var.Etcd_nodecount,
+      rootpwd = var.Etcd_rootpassword })
   ]
 }
 

@@ -13,3 +13,4 @@ DeployHelm/*.tfplan
 DeployHelm/terraform.tfstate
 DeployHelm/terraform.tfstate.backup
 DeployHelm/.terraform.tfstate.lock.info
+MS_Backups/*
