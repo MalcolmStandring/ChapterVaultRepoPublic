@@ -1,0 +1,12 @@
+# vault configuration values
+# Using the incubator/vault v 1.2.3 helm repository, doc: https://hub.helm.sh/charts/incubator/vault
+# Hashicorp "Configuration: Etcd Storage Backend" documented at: https://www.vaultproject.io/docs/configuration/storage/etcd
+replicaCount: ${replicas}
+vault:
+  dev: False
+  config:
+    storage:
+      file:
+        path: "/vault/file"
+serviceAccount:
+  create: True
