@@ -16,16 +16,3 @@ provider "helm" {
     }
 }
 
-# The Vault provider allows Terraform to read from, write to, and configure Hashicorp Vault.
-# https://www.terraform.io/docs/providers/vault/index.html
-provider "vault" {
-  # It is strongly recommended to configure this provider through the
-  # environment variables described above, so that each user can have
-  # separate credentials set in the environment.
-  #
-  # This will default to using $VAULT_ADDR
-  # But can be set explicitly
-  # address = "https://vault.example.net:8200"
-#    address = https://172.30.188.43:8200
-#    skip_tls_verify = true
-}
