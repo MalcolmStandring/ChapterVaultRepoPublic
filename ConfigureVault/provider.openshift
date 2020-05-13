@@ -29,3 +29,4 @@ provider "vault" {
   token = "s.zwdb7y69ch3K60Y8ji9w1Oes"
   skip_tls_verify = true
 }
+
