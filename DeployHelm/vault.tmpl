@@ -13,7 +13,7 @@ vault:
 serviceAccount:    
   create: True
 extraEnvironmentVars:
-  export VAULT_ADDR=http://[::]:8200
+  export VAULT_ADDR=${VAULT_ADDR}
 ui:
   enabled: true
   serviceType: LoadBalancer

@@ -31,7 +31,8 @@ resource "helm_release" "vault" {
       replicas = var.Vault_nodecount, 
       etcd_clusterip = data.kubernetes_service.etcd_svc.spec.0.cluster_ip, 
       etcd_clusterport = data.kubernetes_service.etcd_svc.spec.0.port.0.port,
-      etc_rootpwd = var.Etcd_rootpassword } ) 
+      etc_rootpwd = var.Etcd_rootpassword,
+      VAULT_ADDR = "http://[::]:8200" } ) 
   ]
 }
 
