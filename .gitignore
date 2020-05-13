@@ -3,6 +3,7 @@ ConfigureVault/*.tfplan
 ConfigureVault/terraform.tfstate
 ConfigureVault/terraform.tfstate.backup
 ConfigureVault/.terraform.tfstate.lock.info
+ConfigureVault/awscreds.tf
 DeployHelm/.terraform
 DeployHelm/*.tfplan
 DeployHelm/terraform.tfstate
