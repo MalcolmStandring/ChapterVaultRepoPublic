@@ -18,7 +18,7 @@ resource "kubernetes_namespace" "k8s-secret-namespace" {
 }
 
 resource "helm_release" "vault" {
-  depends_on = [helm_release.etcd]
+  depends_on = [helm_release.etcd, kubernetes_namespace.vault, kubernetes_cluster_role_binding.vault_scc_role_privileged ]
 
   name      = "vault"
   chart     = "vault"

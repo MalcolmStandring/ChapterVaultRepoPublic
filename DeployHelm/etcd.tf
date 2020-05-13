@@ -10,6 +10,7 @@ resource "kubernetes_namespace" "etcd" {
 }
 
 resource "helm_release" "etcd" {
+ depends_on = [kubernetes_namespace.etcd, kubernetes_cluster_role_binding.etcd_scc_role_hostmount_anyuid ]
   name      = "etcd"
   chart     = "etcd"
   repository = data.helm_repository.bitnami.metadata[0].url
