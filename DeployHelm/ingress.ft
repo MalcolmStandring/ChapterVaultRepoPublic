@@ -1,6 +1,55 @@
+provider "tls" {}
+
+resource "tls_private_key" "PK_TLSingress_vault" {
+    algorithm = "RSA"
+    rsa_bits = 2048
+}
+
+resource "tls_self_signed_cert" "CERT_TLSingress_vault" {
+    key_algorithm   = tls_private_key.PK_TLSingress_vault.algorithm
+    private_key_pem = tls_private_key.PK_TLSingress_vault.private_key_pem
+    
+    # Certificate expires after 12 hours.
+    validity_period_hours = 12
+
+    # Generate a new certificate if Terraform is run within three
+    # hours of the certificate's expiration time.
+    early_renewal_hours = 3
+
+    # Reasonable set of uses for a server SSL certificate.
+    allowed_uses = [
+        "key_encipherment",
+        "digital_signature",
+        "server_auth"
+    ]
+
+    dns_names = [ "vault-vault.apps.cluster-1558.sandbox1776.opentlc.com" ]
+
+    subject {
+        common_name  = "example.com"
+        organization = "Gemini PE Chapter, Capgemini"
+    }
+
+}
+
+# Create a vault namespace tls secret with the cert and private key
+resource "kubernetes_secret" "SECRET_TLSingress_vault" {
+    metadata {
+        name = "tls-vault-ingress"
+        namespace = "vault"
+    }
+    data = {
+        "tls.crt" = tls_self_signed_cert.CERT_TLSingress_vault.cert_pem
+        "tls.key" = tls_private_key.PK_TLSingress_vault.private_key_pem
+        }
+    type = "kubernetes.io/tls"
+}
+
+# Having created a cert and a private key, now create an ingress
 resource "kubernetes_ingress" "vault_ingress" {
     metadata {
         name = "vault"
+        namespace = "vault"
     }
 
     spec {
@@ -15,9 +64,20 @@ resource "kubernetes_ingress" "vault_ingress" {
                         service_name = "vault"
                         service_port = 8200
                     }
-                    path = "/*"
+                    path = "/"
                 }
             }
         }
+        tls {
+            hosts = [ "vault-vault.apps.cluster-1558.sandbox1776.opentlc.com" ]
+            secret_name = "tls-vault-ingress"
+        }
     }
+}
+
+output "Certificate" {
+    value = tls_self_signed_cert.CERT_TLSingress_vault.cert_pem
+}
+output "Private_Key" {
+    value = tls_private_key.PK_TLSingress_vault.private_key_pem
 }
