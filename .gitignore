@@ -10,3 +10,10 @@ DeployHelm/terraform.tfstate
 DeployHelm/terraform.tfstate.backup
 DeployHelm/.terraform.tfstate.lock.info
 MS_Backups/*
+DeployVault/terraform.tfstate
+DeployVault/.terraform/plugins/windows_amd64/terraform-provider-kubernetes_v1.11.2_x4.exe
+DeployVault/.terraform/plugins/windows_amd64/lock.json
+DeployVault-Manual/.terraform/plugins/linux_amd64/lock.json
+DeployVault-Manual/versions.tf
+DeployVault-Manual/provider.tf
+DeployVault-Manual/.terraform/plugins/linux_amd64/terraform-provider-kubernetes_v1.11.2_x4

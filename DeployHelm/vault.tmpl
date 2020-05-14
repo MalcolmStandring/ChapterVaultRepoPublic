@@ -13,7 +13,8 @@ vault:
 serviceAccount:    
   create: True
 extraEnvironmentVars:
-  export VAULT_ADDR=${VAULT_ADDR}
+  VAULT_ADDR: ${VAULT_ADDR}
+  BLACKCATS: BLACKCATS
 ui:
   enabled: true
   serviceType: LoadBalancer
