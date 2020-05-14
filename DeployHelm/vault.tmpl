@@ -10,11 +10,11 @@ vault:
         username: "root"
         password: "${etc_rootpwd}"
         path: "/vault/"
+  extraEnv:
+    BLACKCATS: WHITECATS
+    VAULT_ADDR: "http://127.0.0.1:8200"
 serviceAccount:    
   create: True
-extraEnvironmentVars:
-  VAULT_ADDR: ${VAULT_ADDR}
-  BLACKCATS: BLACKCATS
 ui:
   enabled: true
   serviceType: LoadBalancer
