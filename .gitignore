@@ -17,3 +17,4 @@ DeployVault-Manual/.terraform/plugins/linux_amd64/lock.json
 DeployVault-Manual/versions.tf
 DeployVault-Manual/provider.tf
 DeployVault-Manual/.terraform/plugins/linux_amd64/terraform-provider-kubernetes_v1.11.2_x4
+ConfigureVault/secrets_engines.tf
