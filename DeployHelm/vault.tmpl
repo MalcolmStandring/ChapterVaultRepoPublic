@@ -11,8 +11,10 @@ vault:
         password: "${etc_rootpwd}"
         path: "/vault/"
   extraEnv:
-    BLACKCATS: WHITECATS
-    VAULT_ADDR: "http://127.0.0.1:8200"
+    - name: BLACKCATS
+      value: "WHITECATS"
+    - name: VAULT_ADDR
+      value: "http://127.0.0.1:8200"
 serviceAccount:    
   create: True
 ui:
