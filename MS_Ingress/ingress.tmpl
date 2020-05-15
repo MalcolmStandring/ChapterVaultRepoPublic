@@ -1,0 +1,18 @@
+controller:
+    name:                   "nginx-ingress-controller"
+    kind:                   "deployment"
+    replicaCount:           1
+    ingresClass:            "nginx"
+    enableTLSPassthrough:   false
+    service:
+        create:                 true
+        type:                   "LoadBalancer"
+        externalTrafficPolicy:  "Local"
+        httpPort:
+            enable:                 false
+            port:                   80
+        httpsPort: 
+            enable:                 true
+            port:                   443
+rbac:
+    create:     false

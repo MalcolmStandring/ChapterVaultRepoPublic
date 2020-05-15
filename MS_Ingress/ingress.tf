@@ -55,13 +55,70 @@ resource "kubernetes_namespace" "nginx-ingress-controller" {
   }
 }
 
-# Use a helm-chart to deploy an Ingress Controller
+# Use a helm-chart to deploy an Ingress Controller.
+# The current v1.7.0 is a release candidate and relies on featires in K8 v 1.15+,
+# so forced to earlier version. This version fails to auto-crete the required 
+# service account, so create that first
+resource "kubernetes_secret" "nginx-ingress-controller-nginx-ingress-secret" {
+  metadata {
+    name = "nginx-ingress-controller-nginx-ingress-secret"
+    namespace = kubernetes_namespace.nginx-ingress-controller.metadata.0.name
+  }
+}
+resource "kubernetes_service_account" "nginx-ingress-controller-nginx-ingress" {
+  metadata {
+    name = "nginx-ingress-controller-nginx-ingress"
+    namespace = kubernetes_namespace.nginx-ingress-controller.metadata.0.name
+  }
+  secret {
+    name = "${kubernetes_secret.nginx-ingress-controller-nginx-ingress-secret.metadata.0.name}"
+    namespace = kubernetes_namespace.nginx-ingress-controller.metadata.0.name
+  }
+}
+# And bind a PSP to it
+resource "kubernetes_cluster_role" "scc_role_nginx" {
+    metadata {
+        name = "psp-nginx"
+    }
+
+    rule {
+        api_groups = [ "security.openshift.io" ]
+        resources  = [ "securitycontextconstraints" ]
+        resource_names  = ["privileged"]
+        verbs      = [ "use" ]
+    }
+}
+######### DONE TO THIS POINT!!!!
+resource "kubernetes_cluster_role_binding" "nginx_scc_role_privileged" {
+    depends_on = [ 
+        kubernetes_cluster_role.scc_role_nginx 
+        ]
+
+    metadata {
+        name = "psp-sa-nginx-nginx"
+    }
+
+    role_ref {
+        api_group = "rbac.authorization.k8s.io"
+        kind      = "ClusterRole"
+        name      = "psp-nginx"
+    }
+
+    subject {
+        kind = "User"
+        name = "system:serviceaccount:vault:vault"
+        api_group = "rbac.authorization.k8s.io"
+    }
+}
+
+
 resource "helm_release" "nginx_ingress_controller" {
- depends_on = [kubernetes_namespace.nginx-ingress ]
+ depends_on = [kubernetes_namespace.nginx-ingress-controller ]
   name      = "nginx-ingress-controller"
   chart     = "nginx-ingress"
-  repository = data.helm_repository.bitnanginx-stablemi.metadata[0].url
-  namespace = kubernetes_namespace.nginx-ingress.metadata.0.name
+  version   = "0.4.3"
+  repository = data.helm_repository.nginx-stable.metadata[0].url
+  namespace = kubernetes_namespace.nginx-ingress-controller.metadata.0.name
   # Doc: https://docs.nginx.com/nginx-ingress-controller/installation/installation-with-helm/ v1.7.0
 
   values = [
@@ -69,11 +126,12 @@ resource "helm_release" "nginx_ingress_controller" {
   ]
 }
 
-# Having created a tls.secret for Vault encrypted comms, and an Ingress Controller, now create an ingress
+# Having created a tls.secret for Vault encrypted comms, and an Ingress Controller, now create an ingress.
+# Switched to helm chart v
 resource "kubernetes_ingress" "vault_ingress" {
     metadata {
         name = "vault"
-        namespace = kubernetes_namespace.nginx-ingress.metadata.0.name
+        namespace = kubernetes_namespace.nginx-ingress-controller.metadata.0.name
     }
 
     spec {
